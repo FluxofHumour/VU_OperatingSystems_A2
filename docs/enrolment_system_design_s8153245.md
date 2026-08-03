@@ -1,5 +1,5 @@
-# Student Name: George O'Hara
-# Student ID: s8153245
+# Student Name: George O'Hara & Martin Yii
+# Student ID: s8153245 s
 # Assessment: VU Enrolment System
 
 # VU Enrolment System Design & Reasoning
