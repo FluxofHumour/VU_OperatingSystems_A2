@@ -6,7 +6,7 @@ TIME_SLICE = 2
 TOTAL_MEMORY = 100
 
 # Request data
-request_ids = ["George", "John", "Bill", "Frank", "Harry", "Simon"]  # EO = personalised request
+request_ids = ["George", "Martin", "Bill", "Frank", "Harry", "Simon"]  # EO = personalised request
 
 cpu_times = [4, 2, 6, 3, 5, 8]
 memory_required = [25, 15, 90, 20, 30, 120]
