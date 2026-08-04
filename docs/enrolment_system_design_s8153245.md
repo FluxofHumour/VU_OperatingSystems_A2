@@ -56,14 +56,14 @@ Assume:
   - FIT1001 = 2 seats
   - NIT2002 = Full (0 seats)
 
-| ID | Arrival | CPU | Memory | Subject | Seats Available | Decision | Reason                |
-|----|---------|-----|--------|---------|----------------|-----------|-----------------------|
-| E1 | 0       | 4   | 25     | FIT1001 | Yes            | Execute   | Meets all constraints |
-| E2 | 1       | 2   | 15     | FIT1001 | Yes            | Execute   | Meets all constraints |
-| E3 | 2       | 6   | 90     | FIT1001 | Yes            | Wait      | High memory usage     |
-| E4 | 3       | 3   | 20     | NIT2002 | No             | Reject    | Class full            |
-| EO | 4       | 5   | 30     | FIT1001 | Yes            | Execute   | Personalised request  |
-| E5 | 5       | 8   | 120    | FIT1001 | Yes            | Reject    | Memory exceeds limit  |
+| ID     | Arrival | CPU | Memory | Subject | Seats Available | Decision | Reason                |
+|--------|---------|-----|--------|---------|----------------|-----------|-----------------------|
+| George | 0       | 4   | 25     | FIT1001 | Yes            | Execute   | Meets all constraints |
+| John   | 1       | 2   | 15     | FIT1001 | Yes            | Execute   | Meets all constraints |
+| Bill   | 2       | 6   | 90     | FIT1001 | Yes            | Wait      | High memory usage     |
+| Frank  | 3       | 3   | 20     | NIT2002 | No             | Reject    | Class full            |
+| Harry  | 4       | 5   | 30     | FIT1001 | Yes            | Execute   | Personalised request  |
+| Simon  | 5       | 8   | 120    | FIT1001 | Yes            | Reject    | Memory exceeds limit  |
 
 ---
 
