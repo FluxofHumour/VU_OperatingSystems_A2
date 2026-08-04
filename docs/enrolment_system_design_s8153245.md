@@ -62,7 +62,7 @@ Assume:
 | Martin | 1       | 2   | 15     | FIT1001 | Yes            | Execute   | Meets all constraints |
 | Bill   | 2       | 6   | 90     | FIT1001 | Yes            | Wait      | High memory usage     |
 | Frank  | 3       | 3   | 20     | NIT2002 | No             | Reject    | Class full            |
-| Harry  | 4       | 5   | 30     | FIT1001 | Yes            | Execute   | Personalised request  |
+| Harry  | 4       | 5   | 30     | FIT1001 | Yes            | Execute   | Meets all constraints |
 | Simon  | 5       | 8   | 120    | FIT1001 | Yes            | Reject    | Memory exceeds limit  |
 
 ---
