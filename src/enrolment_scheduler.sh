@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Student Name: George O'Hara
-# Student ID: <StudentID>
+# Student ID: s8153245
 # Assessment: VU Enrolment System Scheduler
 
 TIME_SLICE=2
