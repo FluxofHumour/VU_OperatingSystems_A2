@@ -1,1 +1,6 @@
-
+└─$ ./enrolment_scheduler.sh & ps
+[1] 625
+    PID TTY          TIME CMD
+    417 pts/0    00:00:00 bash
+    625 pts/0    00:00:00 bash
+    626 pts/0    00:00:00 ps
