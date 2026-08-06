@@ -1,1 +1,89 @@
+==================================================
+VU ENROLMENT ROUND ROBIN SCHEDULER
+Student: George O'Hara
+Student ID: <StudentID>
+Time Slice: 2
+Total Memory: 100MB
+==================================================
 
+--------------- Admission Control ---------------
+George ACCEPTED
+Martin ACCEPTED
+Bill WAITING - High Memory Request
+Frank REJECTED - Class Full
+Harry ACCEPTED
+Simon REJECTED - Memory Limit Exceeded
+
+------------- Round Robin Execution -------------
+
+Time 0 -> 2
+Running: George
+CPU Before: 4
+CPU Remaining: 2
+--------------------------------------
+
+Time 2 -> 4
+Running: Martin
+CPU Before: 2
+CPU Remaining: 0
+Martin COMPLETED
+--------------------------------------
+
+Time 4 -> 6
+Running: Bill
+CPU Before: 6
+CPU Remaining: 4
+--------------------------------------
+
+Time 6 -> 8
+Running: Harry
+CPU Before: 5
+CPU Remaining: 3
+--------------------------------------
+
+Time 8 -> 10
+Running: George
+CPU Before: 2
+CPU Remaining: 0
+George COMPLETED
+--------------------------------------
+
+Time 10 -> 12
+Running: Bill
+CPU Before: 4
+CPU Remaining: 2
+--------------------------------------
+
+Time 12 -> 14
+Running: Harry
+CPU Before: 3
+CPU Remaining: 1
+--------------------------------------
+
+Time 14 -> 16
+Running: Bill
+CPU Before: 2
+CPU Remaining: 0
+Bill COMPLETED
+--------------------------------------
+
+Time 16 -> 17
+Running: Harry
+CPU Before: 1
+CPU Remaining: 0
+Harry COMPLETED
+--------------------------------------
+
+---------------- Final Status ----------------
+George -> COMPLETED
+   Waiting Time: 6 units
+Martin -> COMPLETED
+   Waiting Time: 2 units
+Bill -> COMPLETED
+   Waiting Time: 10 units
+Frank -> REJECTED (Class Full)
+Harry -> COMPLETED
+   Waiting Time: 12 units
+Simon -> REJECTED (Memory Limit)
+
+============== Scheduler Finished ==============
