@@ -1,1 +1,12 @@
+Student Name: George O'Hara
 
+Student ID: <StudentID>
+
+Reflection
+Fairness does not mean that all enrolment requests should be treated identically. Some requests require more CPU time, more memory, or may depend on class seat availability. If every request were allowed to run until completion before another request could begin, shorter requests would experience unnecessary delays and the system would become less responsive.
+
+To address this issue, the enrolment system uses the Round Robin scheduling algorithm with a time slice of 2 units. Round Robin improves fairness by giving each eligible enrolment request an equal opportunity to use the CPU. Long-running requests are periodically paused, allowing other requests to make progress rather than waiting indefinitely.
+
+Operating systems use similar scheduling techniques under heavy workloads. The CPU is shared between multiple processes, with each process receiving a small amount of execution time before the scheduler moves to the next process. This approach improves responsiveness, prevents starvation, and ensures that system resources are distributed fairly.
+
+In the VU enrolment system simulation, Round Robin scheduling allowed multiple enrolment requests to progress simultaneously while still enforcing memory limits and class-capacity constraints. Requests that exceeded available memory or attempted to enrol in a full class were rejected, demonstrating that fairness must be balanced with correctness and system reliability.
