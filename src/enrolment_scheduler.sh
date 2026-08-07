@@ -17,7 +17,7 @@ cpu_times=(4 2 6 3 5 8)
 memory_required=(25 15 90 20 30 120)
 
 # Available class seats
-seat_available=(1 1 4 0 6 3)
+seat_available=(1 1 4 0 6 3) # 0 = no seats available
 
 # Copy CPU times into remaining CPU array
 remaining_cpu=("${cpu_times[@]}")
@@ -28,7 +28,7 @@ waiting_time=(0 0 0 0 0 0)
 echo "=================================================="
 echo "VU ENROLMENT ROUND ROBIN SCHEDULER"
 echo "Student: George O'Hara"
-echo "Student ID: <StudentID>"
+echo "Student ID: s8153245"
 echo "Time Slice: $TIME_SLICE"
 echo "Total Memory: ${TOTAL_MEMORY}MB"
 echo "=================================================="
