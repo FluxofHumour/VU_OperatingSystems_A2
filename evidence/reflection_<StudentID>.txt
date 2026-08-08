@@ -1,18 +1,8 @@
-Student Name: George O'Hara
-
-Student ID: <StudentID>
-
 Reflection
-Fairness does not mean that all enrolment requests should be treated identically. Some requests require more CPU time, more memory, or may depend on class seat availability. 
-If every request were allowed to run until completion before another request could begin, shorter requests would experience unnecessary delays and the system would become less responsive.
+Fairness does not mean every enrolment request should receive identical treatment. Some requests require significantly more CPU processing time or memory resources, while other requests may be affected by class seat limitations. Treating all requests exactly the same could result in poor performance and longer waiting times.
 
-To address this issue, the enrolment system uses the Round Robin scheduling algorithm with a time slice of 2 units. 
-Round Robin improves fairness by giving each eligible enrolment request an equal opportunity to use the CPU. 
-Long-running requests are periodically paused, allowing other requests to make progress rather than waiting indefinitely.
+The Round Robin scheduling algorithm improves fairness by giving every admitted request a fixed time slice. No request is able to monopolise the CPU, and all active requests make progress while waiting their turn.
 
-Operating systems use similar scheduling techniques under heavy workloads. 
-The CPU is shared between multiple processes, with each process receiving a small amount of execution time before the scheduler moves to the next process. 
-This approach improves responsiveness, prevents starvation, and ensures that system resources are distributed fairly.
+Modern operating systems use similar approaches when managing competing processes. CPU schedulers distribute processor time among processes, while memory management systems determine whether processes can safely execute.
 
-In the VU enrolment system simulation, Round Robin scheduling allowed multiple enrolment requests to progress simultaneously while still enforcing memory limits and class-capacity constraints. 
-Requests that exceeded available memory or attempted to enrol in a full class were rejected, demonstrating that fairness must be balanced with correctness and system reliability.
+The VU enrolment system follows the same principles by balancing fairness, responsiveness, and correctness while enforcing resource constraints.
