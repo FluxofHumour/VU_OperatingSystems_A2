@@ -1,0 +1,12 @@
+Reflection
+Fairness does not mean every enrolment request should receive identical treatment. 
+Some requests require significantly more CPU processing time or memory resources, while other requests may be affected by class seat limitations. 
+Treating all requests exactly the same could result in poor performance and longer waiting times.
+
+The Round Robin scheduling algorithm improves fairness by giving every admitted request a fixed time slice. 
+No request is able to monopolise the CPU, and all active requests make progress while waiting their turn.
+
+Modern operating systems use similar approaches when managing competing processes. 
+CPU schedulers distribute processor time among processes, while memory management systems determine whether processes can safely execute.
+
+The VU enrolment system follows the same principles by balancing fairness, responsiveness, and correctness while enforcing resource constraints.
