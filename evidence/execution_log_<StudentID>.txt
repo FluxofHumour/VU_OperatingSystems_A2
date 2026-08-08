@@ -1,89 +1,201 @@
-==================================================
-VU ENROLMENT ROUND ROBIN SCHEDULER
-Student: George O'Hara
-Student ID: <StudentID>
-Time Slice: 2
-Total Memory: 100MB
-==================================================
+==========================================================
+             VU Enrolment System Scheduler
+             Student Name: Martin Yii
+             Student ID: s8216534
+==========================================================
 
---------------- Admission Control ---------------
-George ACCEPTED
-Martin ACCEPTED
-Bill WAITING - High Memory Request
-Frank REJECTED - Class Full
-Harry ACCEPTED
-Simon REJECTED - Memory Limit Exceeded
+CHECKPOINT 1 - First Request
+Request:      REQ_Prog_A
+Arrival Time: 0
+CPU Time:     5
+Memory:       100
 
-------------- Round Robin Execution -------------
+==========================================================
+ADMISSION CHECK
+==========================================================
 
-Time 0 -> 2
-Running: George
-CPU Before: 4
-CPU Remaining: 2
---------------------------------------
+Checking request: REQ_Prog_A
+  Arrival time: 0
+  CPU time:     5
+  Memory:       100
+  Status: READY
+  Class seat available: YES
+  Memory available: YES
+      Seat allocated for REQ_Prog_A
+      Remaining seats: 0
+      Memory allocated: 100
+      Available memory: 80
 
-Time 2 -> 4
-Running: Martin
-CPU Before: 2
-CPU Remaining: 0
-Martin COMPLETED
---------------------------------------
+Checking request: REQ_Cyb_B
+  Arrival time: 0
+  CPU time:     2
+  Memory:       200
+  Status: REJECTED
+  Reason: Memory requirement exceeds total memory.
 
-Time 4 -> 6
-Running: Bill
-CPU Before: 6
-CPU Remaining: 4
---------------------------------------
+Checking request: REQ_NET_C
+  Arrival time: 4
+  CPU time:     6
+  Memory:       150
+  Status: WAITING
+  Reason: Not enough available memory.
+  Required memory: 150
+  Available memory: 80
 
-Time 6 -> 8
-Running: Harry
-CPU Before: 5
-CPU Remaining: 3
---------------------------------------
+Checking request: REQ_Prog_A_s8216534
+  Arrival time: 4
+  CPU time:     3
+  Memory:       120
+  Status: REJECTED
+  Reason: No class seat available.
 
-Time 8 -> 10
-Running: George
-CPU Before: 2
-CPU Remaining: 0
-George COMPLETED
---------------------------------------
+Checking request: REQ_NIT_D
+  Arrival time: 8
+  CPU time:     6
+  Memory:       180
+  Status: WAITING
+  Reason: Not enough available memory.
+  Required memory: 180
+  Available memory: 80
 
-Time 10 -> 12
-Running: Bill
-CPU Before: 4
-CPU Remaining: 2
---------------------------------------
+==========================================================
+ROUND ROBIN EXECUTION
+Time Slice = 2 units
+==========================================================
 
-Time 12 -> 14
-Running: Harry
-CPU Before: 3
-CPU Remaining: 1
---------------------------------------
+Executing REQ_Prog_A
+  Time: 0 -> 2
+  Time slice used: 2
+  Remaining CPU time: 3
+  Status: WAITING - more CPU time required
 
-Time 14 -> 16
-Running: Bill
-CPU Before: 2
-CPU Remaining: 0
-Bill COMPLETED
---------------------------------------
+Executing REQ_Prog_A
+  Time: 2 -> 4
+  Time slice used: 2
+  Remaining CPU time: 1
+  Status: WAITING - more CPU time required
 
-Time 16 -> 17
-Running: Harry
-CPU Before: 1
-CPU Remaining: 0
-Harry COMPLETED
---------------------------------------
+Executing REQ_Prog_A
+  Time: 4 -> 5
+  Time slice used: 1
+  Remaining CPU time: 0
+      Memory released:  100
+      Available memory: 180
+  Status: COMPLETED
+  Completion time: 5
+  Waiting time: 0
+  Turnaround time: 5
+  Class seat remains UNAVAILABLE.
 
----------------- Final Status ----------------
-George -> COMPLETED
-   Waiting Time: 6 units
-Martin -> COMPLETED
-   Waiting Time: 2 units
-Bill -> COMPLETED
-   Waiting Time: 10 units
-Frank -> REJECTED (Class Full)
-Harry -> COMPLETED
-   Waiting Time: 12 units
-Simon -> REJECTED (Memory Limit)
+[5] Memory is now available.
+[5] REQ_NET_C can enter the queue.
+      Seat allocated for REQ_NET_C
+      Remaining seats: 0
+      Memory allocated: 150
+      Available memory: 30
 
-============== Scheduler Finished ==============
+Executing REQ_NET_C
+  Time: 5 -> 7
+  Time slice used: 2
+  Remaining CPU time: 4
+  Status: WAITING - more CPU time required
+
+Executing REQ_NET_C
+  Time: 7 -> 9
+  Time slice used: 2
+  Remaining CPU time: 2
+  Status: WAITING - more CPU time required
+
+Executing REQ_NET_C
+  Time: 9 -> 11
+  Time slice used: 2
+  Remaining CPU time: 0
+      Memory released:  150
+      Available memory: 180
+  Status: COMPLETED
+  Completion time: 11
+  Waiting time: 1
+  Turnaround time: 7
+  Class seat remains UNAVAILABLE.
+
+[11] Memory is now available.
+[11] REQ_NIT_D can enter the queue.
+      Seat allocated for REQ_NIT_D
+      Remaining seats: 2
+      Memory allocated: 180
+      Available memory: 0
+
+Executing REQ_NIT_D
+  Time: 11 -> 13
+  Time slice used: 2
+  Remaining CPU time: 4
+  Status: WAITING - more CPU time required
+
+Executing REQ_NIT_D
+  Time: 13 -> 15
+  Time slice used: 2
+  Remaining CPU time: 2
+  Status: WAITING - more CPU time required
+
+Executing REQ_NIT_D
+  Time: 15 -> 17
+  Time slice used: 2
+  Remaining CPU time: 0
+      Memory released:  180
+      Available memory: 180
+  Status: COMPLETED
+  Completion time: 17
+  Waiting time: 3
+  Turnaround time: 9
+  Class seat remains UNAVAILABLE.
+
+==========================================================
+NO MORE ACTIVE REQUESTS
+All requests are either COMPLETED or REJECTED.
+Scheduler stopping.
+==========================================================
+
+
+==========================================================
+FINAL EXECUTION TABLE
+==========================================================
+Request                Arrival    CPU        Start      Completion   Status       Subject
+------------------------------------------------------------------------------------------------------
+REQ_Prog_A             0          5          0          5            COMPLETED    class_Prog_A
+REQ_Cyb_B              0          2          -1         -1           REJECTED     NONE
+REQ_NET_C              4          6          5          11           COMPLETED    class_NET_C
+REQ_Prog_A_s8216534    4          3          -1         -1           REJECTED     NONE
+REQ_NIT_D              8          6          11         17           COMPLETED    class_NIT_D
+
+==========================================================
+WAITING TIME AND TURNAROUND TIME
+==========================================================
+Request                Waiting Time    Turnaround Time
+----------------------------------------------------------
+REQ_Prog_A             0               5
+REQ_Cyb_B              N/A             N/A
+REQ_NET_C              1               7
+REQ_Prog_A_s8216534    N/A             N/A
+REQ_NIT_D              3               9
+
+==========================================================
+PERFORMANCE SUMMARY
+==========================================================
+Completed processes:       3
+Rejected requests:         2
+Total waiting time:        4
+Total turnaround time:     21
+Average waiting time:      1.33
+Average turnaround time:   7.00
+
+==========================================================
+FINAL CLASS SEAT STATUS
+==========================================================
+class_Prog_A : 0 seat(s) available
+class_Cyb_B : 2 seat(s) available
+class_NET_C : 0 seat(s) available
+class_NIT_D : 2 seat(s) available
+
+==========================================================
+FINAL AVAILABLE MEMORY: 180
+==========================================================
