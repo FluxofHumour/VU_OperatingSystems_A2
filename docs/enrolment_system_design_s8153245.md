@@ -292,28 +292,6 @@ Reason:
 Memory Required = 200
 System Memory = 180
 
-
----
-
-## Gantt Chart
-
-
-0      2      4      5      7      8      10      12      14      16      18      20
-|------|------|------|------|------|------|------|------|------|------|------|
-
-|REQ_Prog_A|REQ_Prog_A|REQ_Prog_A|
-                         |REQ_Prog_A_s8216534|
-                                            |REQ_Prog_A_s8216534|
-                                                               |REQ_NET_C|
-                                                                          |REQ_NET_C|
-                                                                                     |REQ_NET_C|
-                                                                                                |REQ_NIT_D|
-                                                                                                           |REQ_NIT_D|
-                                                                                                                      |REQ_NIT_D|
-
-
----
-
 ## Memory State Changes
 
 ### Time 0
