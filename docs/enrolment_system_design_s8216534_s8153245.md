@@ -17,10 +17,9 @@
 7. Section C – Round Robin Simulation
 8. Failure Analysis
 9. Individual Contribution
-10. Section D – Reflection
-11. Conclusion
+10. Conclusion
 
----
+--
 
 # 1. Project Summary
 
