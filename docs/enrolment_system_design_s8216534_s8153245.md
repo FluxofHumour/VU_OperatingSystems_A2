@@ -135,13 +135,13 @@ Once a seat has been assigned it remains occupied for the duration of the simula
 
 ## Request Classification Table
 
-| Request | Arrival | CPU | Memory | Class Seat | Decision | Reason |
-|----------|---------|-----|---------|------------|----------|--------|
-| REQ_Prog_A | 0 | 5 | 100 | Available | READY | All constraints satisfied |
-| REQ_Cyb_B | 0 | 2 | 200 | Available | REJECTED | Memory requirement exceeds total memory |
-| REQ_NET_C | 4 | 6 | 150 | Available | WAITING | Insufficient available memory |
-| REQ_Prog_A_s8216534 | 4 | 3 | 120 | Available | WAITING | Memory unavailable at arrival |
-| REQ_NIT_D | 8 | 6 | 180 | Available | WAITING | Must wait for memory release |
+| Request             | Arrival | CPU | Memory | Class Seat  | Decision | Reason                                  |
+|---------------------|---------|-----|---------|------------|----------|-----------------------------------------|
+| REQ_Prog_A          | 0       | 5   | 100     | Available  | READY    | All constraints satisfied               |
+| REQ_Cyb_B           | 0       | 2   | 200     | Available  | REJECTED | Memory requirement exceeds total memory |
+| REQ_NET_C           | 4       | 6   | 150     | Available  | WAITING  | Insufficient available memory           |
+| REQ_Prog_A_s8216534 | 4       | 3   | 120     | Available  | WAITING  | Memory unavailable at arrival           |
+| REQ_NIT_D           | 8       | 6   | 180     | Available  | WAITING  | Must wait for memory release            |
 
 ---
 
@@ -163,13 +163,13 @@ and satisfies the assessment individualisation requirement.
 
 ### Personalised Request Details
 
-| Property | Value |
-|----------|--------|
-| Request ID | REQ_Prog_A_s8216534 |
-| Arrival Time | 4 |
-| CPU Time | 3 |
-| Memory | 120 |
-| Class | class_Prog_A |
+| Property     | Value               |
+|--------------|---------------------|
+| Request ID   | REQ_Prog_A_s8216534 |
+| Arrival Time | 4                   |
+| CPU Time     | 3                   |
+| Memory       | 120                 |
+| Class        | class_Prog_A        |
 
 Initially, the request must wait because insufficient memory is available. Once memory is released by completed processes, it is admitted to the Round Robin queue.
 
@@ -229,12 +229,12 @@ Invalid requests are rejected before entering the queue.
 
 Round Robin provides a balance between:
 
-| Requirement | Support |
-|------------|----------|
-| Fairness | High |
-| Responsiveness | High |
-| Starvation Prevention | High |
-| Simplicity | High |
+| Requirement           | Support  |
+|-----------------------|----------|
+| Fairness              | High     |
+| Responsiveness        | High     |
+| Starvation Prevention | High     |
+| Simplicity            | High     |
 
 For a high-demand enrolment platform, Round Robin provides predictable and equitable CPU access.
 
@@ -254,13 +254,13 @@ Total Memory = 180 Units
 
 ## Initial Requests
 
-| Request | Arrival | CPU | Memory |
-|----------|---------|-----|---------|
-| REQ_Prog_A | 0 | 5 | 100 |
-| REQ_Cyb_B | 0 | 2 | 200 |
-| REQ_NET_C | 4 | 6 | 150 |
-| REQ_Prog_A_s8216534 | 4 | 3 | 120 |
-| REQ_NIT_D | 8 | 6 | 180 |
+| Request             | Arrival | CPU | Memory  |
+|---------------------|---------|-----|---------|
+| REQ_Prog_A          | 0       | 5   | 100     |
+| REQ_Cyb_B           | 0       | 2   | 200     |
+| REQ_NET_C           | 4       | 6   | 150     |
+| REQ_Prog_A_s8216534 | 4       | 3   | 120     |
+| REQ_NIT_D           | 8       | 6   | 180     |
 
 ---
 
@@ -268,9 +268,9 @@ Total Memory = 180 Units
 
 ### Accepted
 
-```text
+
 REQ_Prog_A
-```
+
 
 ### Waiting
 
@@ -371,13 +371,13 @@ Memory Released = 180
 
 ## Waiting Time and Turnaround Time
 
-| Request | Waiting Time | Turnaround Time |
-|----------|-------------|----------------|
-| REQ_Prog_A | 0 | 5 |
-| REQ_Cyb_B | N/A | N/A |
-| REQ_NET_C | Depends on admission timing | Completion - Arrival |
+| Request             | Waiting Time                | Turnaround Time      |
+|---------------------|-----------------------------|----------------------|
+| REQ_Prog_A          | 0                           | 5                    |
+| REQ_Cyb_B           | N/A                         | N/A                  |
+| REQ_NET_C           | Depends on admission timing | Completion - Arrival |
 | REQ_Prog_A_s8216534 | Depends on admission timing | Completion - Arrival |
-| REQ_NIT_D | Depends on admission timing | Completion - Arrival |
+| REQ_NIT_D           | Depends on admission timing | Completion - Arrival |
 
 ---
 
@@ -417,30 +417,16 @@ This demonstrates that:
 
 # 9. Individual Contribution
 
-| Task | Contribution |
-|--------|-------------|
-| System Design | Created enrolment process model |
-| Scheduling Logic | Implemented Round Robin scheduling |
-| Admission Control | Added memory and seat validation |
-| Simulation | Tested process execution and waiting states |
-| Documentation | Produced system report and reasoning tables |
-| Failure Analysis | Analysed rejected enrolment request |
+| Task              | Contribution                                |
+|-------------------|---------------------------------------------|
+| System Design     | Created enrolment process model             |
+| Scheduling Logic  | Implemented Round Robin scheduling          |
+| Admission Control | Added memory and seat validation            |
+| Simulation        | Tested process execution and waiting states |
+| Documentation     | Produced system report and reasoning tables |
+| Failure Analysis  | Analysed rejected enrolment request         |
 
----
-
-# 10. Section D – Reflection
-
-Fairness does not mean every enrolment request should receive identical treatment. Some requests require significantly more CPU processing time or memory resources, while other requests may be affected by class seat limitations. Treating all requests exactly the same could result in poor performance and longer waiting times.
-
-The Round Robin scheduling algorithm improves fairness by giving every admitted request a fixed time slice. No request is able to monopolise the CPU, and all active requests make progress while waiting their turn.
-
-Modern operating systems use similar approaches when managing competing processes. CPU schedulers distribute processor time among processes, while memory management systems determine whether processes can safely execute.
-
-The VU enrolment system follows the same principles by balancing fairness, responsiveness, and correctness while enforcing resource constraints.
-
----
-
-# 11. Conclusion
+# 10. Conclusion
 
 This project successfully demonstrates how a university enrolment system can be modelled using operating system concepts.
 
