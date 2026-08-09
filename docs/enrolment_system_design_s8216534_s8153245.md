@@ -19,65 +19,66 @@
 9. Individual Contribution
 10. Conclusion
 
---
+---
 
 # 1. Project Summary
 
-This project simulates Victoria University's online enrolment system during peak enrolment periods. Students submit enrolment requests that compete for limited system resources, including CPU processing time, available memory, and class seats.
+This project models the Victoria University enrolment platform using Operating System scheduling concepts. Each student enrolment request is treated as a process competing for CPU time, memory resources, and class seat availability.
 
-The system treats each enrolment request as a process and uses a Round Robin scheduling algorithm with a time quantum of two units. Requests are evaluated using admission control before entering the execution queue. Requests may be accepted, delayed, or rejected depending on resource availability.
+The system uses a Round Robin scheduling algorithm with a time slice of 2 CPU units. Requests are admitted only when sufficient memory and class seats are available. Requests may be accepted, delayed in a waiting state, or rejected if system constraints cannot be satisfied.
 
-The simulation demonstrates how operating system concepts can be applied to real-world enrolment management while ensuring fairness, responsiveness, and correctness.
+This simulation demonstrates fairness, responsiveness, and correctness while operating under resource limitations.
 
 ---
 
 # 2. Introduction
 
-At the beginning of each semester, thousands of students attempt to enrol in classes within a short period of time. The enrolment platform must process requests efficiently while ensuring that invalid enrolments are prevented.
+At the beginning of each semester, the VU enrolment platform experiences heavy demand as students attempt to:
 
-Each request requires:
+- Enrol into subjects
+- Change tutorial groups
+- Resolve timetable clashes
+- Finalise study plans
 
-- CPU processing time
-- Memory allocation
-- Class seat availability
+Each enrolment operation requires CPU processing time and memory resources. In addition, enrolment requests depend on class seat availability.
 
-Because these resources are limited, the system must make scheduling decisions that determine whether requests can execute immediately, must wait, or need to be rejected.
+Because system resources are limited, the enrolment platform must decide:
 
-This simulation models those decisions using operating system principles.
+- Which requests execute immediately
+- Which requests wait
+- Which requests must be rejected
+
+This simulation applies Operating System scheduling concepts to manage these competing requests.
 
 ---
 
 # 3. Enrolment Requests as Operating System Processes
 
-An enrolment request behaves similarly to an operating system process.
+An enrolment request behaves similarly to a process within an operating system.
 
-Examples of enrolment operations include:
+Each request requires:
 
-- Validating subject prerequisites
-- Checking timetable clashes
-- Confirming class seat availability
-- Updating the student database
-- Generating enrolment confirmations
+- Arrival time
+- CPU processing time
+- Memory allocation
+- Access to shared resources
 
-Each request contains:
+Examples of enrolment processing include:
 
-| Process Attribute  | Enrolment Equivalent                |
-|--------------------|-------------------------------------|
-| Arrival Time       | Time request enters system          |
-| CPU Time           | Processing time required            |
-| Memory Requirement | Memory needed during processing     |
-| Shared Resource    | Available class seats               |
-| Process State      | Ready, Waiting, Completed, Rejected |
+- Prerequisite checking
+- Timetable validation
+- Class capacity validation
+- Student record updates
 
-Since only one request executes at a time, all requests compete for CPU access.
+Only one enrolment request may execute at a time. All other requests wait in a scheduling queue.
 
 ---
 
 # 4. System Constraints
 
-## CPU Time
+## CPU Processing Time
 
-Different enrolment requests require different processing times.
+Each request requires a different amount of CPU processing.
 
 | Request             | CPU Time |
 |---------------------|----------|
@@ -87,60 +88,58 @@ Different enrolment requests require different processing times.
 | REQ_Prog_A_s8216534 | 3        |
 | REQ_NIT_D           | 6        |
 
-Longer requests require more CPU time and therefore remain in the scheduling queue longer.
+Long-running processes require multiple time slices before completion.
 
 ---
 
-## Memory
+## Memory Availability
 
 The system contains:
 
+Total System Memory = 180 Units
 
-Total Available Memory = 180 Units
-
-
-Each request requires memory before it can execute.
+Memory requirements for each enrolment request are:
 
 | Request             | Memory Required |
 |---------------------|-----------------|
 | REQ_Prog_A          | 100             |
 | REQ_Cyb_B           | 200             |
-| REQ_NET_C           | 150             |
+| REQ_NET_C           | 80              |
 | REQ_Prog_A_s8216534 | 120             |
 | REQ_NIT_D           | 180             |
 
-If insufficient memory is available, the request enters the WAITING state.
+A request may only execute when enough memory is available.
 
-If the memory requirement exceeds the total memory available in the entire system, the request is immediately rejected.
+If the request exceeds total memory capacity, it is rejected.
 
 ---
 
 ## Class Capacity
 
-Each class has a limited number of seats.
+Each class contains a limited number of seats.
 
-| Class        | Capacity |
-|--------------|----------|
-| class_Prog_A | 1        |
-| class_Cyb_B  | 2        |
-| class_NET_C  | 1        |
-| class_NIT_D  | 3        |
+| Class        | Initial Capacity |
+|--------------|------------------|
+| class_Prog_A | 1                |
+| class_Cyb_B  | 2                |
+| class_NET_C  | 1                |
+| class_NIT_D  | 3                |
 
-Once a seat has been assigned it remains occupied for the duration of the simulation.
+When a seat is allocated it remains occupied for the remainder of the simulation.
 
 ---
 
 # 5. Section A – Multi-Constraint Reasoning
 
-## Request Classification Table
+## Request Classification
 
-| Request             | Arrival | CPU | Memory | Class Seat  | Decision | Reason                                  |
-|---------------------|---------|-----|---------|------------|----------|-----------------------------------------|
-| REQ_Prog_A          | 0       | 5   | 100     | Available  | READY    | All constraints satisfied               |
-| REQ_Cyb_B           | 0       | 2   | 200     | Available  | REJECTED | Memory requirement exceeds total memory |
-| REQ_NET_C           | 4       | 6   | 150     | Available  | WAITING  | Insufficient available memory           |
-| REQ_Prog_A_s8216534 | 4       | 3   | 120     | Available  | WAITING  | Memory unavailable at arrival           |
-| REQ_NIT_D           | 8       | 6   | 180     | Available  | WAITING  | Must wait for memory release            |
+| Request             | Arrival | CPU | Memory  | Decision | Reason                             |
+|---------------------|---------|-----|---------|----------|------------------------------------|
+| REQ_Prog_A          | 0       | 5   | 100     | READY    | Memory and seat available          |
+| REQ_Cyb_B           | 0       | 2   | 200     | REJECTED | Memory exceeds total system memory |
+| REQ_NET_C           | 0       | 6   | 80      | READY    | Memory and seat available          |
+| REQ_Prog_A_s8216534 | 4       | 3   | 120     | WAITING  | Insufficient available memory      |
+| REQ_NIT_D           | 8       | 6   | 180     | WAITING  | Insufficient available memory      |
 
 ---
 
@@ -148,29 +147,24 @@ Once a seat has been assigned it remains occupied for the duration of the simula
 
 The personalised request used in this simulation is:
 
-
 REQ_Prog_A_s8216534
 
-
-This request contains the student's ID:
-
+This request contains the Student ID:
 
 s8216534
 
 
-and satisfies the assessment individualisation requirement.
-
 ### Personalised Request Details
 
-| Property     | Value               |
-|--------------|---------------------|
-| Request ID   | REQ_Prog_A_s8216534 |
-| Arrival Time | 4                   |
-| CPU Time     | 3                   |
-| Memory       | 120                 |
-| Class        | class_Prog_A        |
+| Property        | Value               |
+|-----------------|---------------------|
+| Request ID      | REQ_Prog_A_s8216534 |
+| Arrival Time    | 4                   |
+| CPU Time        | 3                   |
+| Memory Required | 120                 |
+| Class           | class_Prog_A        |
 
-Initially, the request must wait because insufficient memory is available. Once memory is released by completed processes, it is admitted to the Round Robin queue.
+The request initially enters the WAITING state because memory resources are unavailable. Once memory has been released by completed requests, it can be admitted into the Round Robin scheduling queue.
 
 ---
 
@@ -180,203 +174,165 @@ Initially, the request must wait because insufficient memory is available. Once 
 
 ### Round Robin
 
-Round Robin scheduling was selected because it balances:
+Time Quantum:
+
+2 CPU Units
+
+Round Robin scheduling was chosen because it balances:
 
 - Fairness
 - Responsiveness
 - Correctness
 
-### Time Quantum
-
-
-2 CPU Units
-
-
 ---
 
 ## Fairness
 
-Every process receives CPU access.
+Every admitted request receives processing time.
 
-No process is allowed to monopolise system resources.
+No process can monopolise the CPU.
 
-Long-running requests are periodically interrupted so that other requests can execute.
+Long-running requests are periodically interrupted, allowing other requests to execute.
 
 ---
 
 ## Responsiveness
 
-Short enrolment requests receive service quickly.
+Short requests can complete quickly.
 
-Students receive feedback sooner because they are not forced to wait for long requests to fully complete.
+Students receive enrolment results faster because shorter requests are not blocked behind larger requests.
 
 ---
 
 ## Correctness
 
-Before execution begins, the scheduler validates:
+Before entering the scheduling queue each request undergoes:
 
-- Memory requirements
-- Arrival times
-- Class seat availability
+- Memory validation
+- Arrival-time validation
+- Class-capacity validation
 
-Invalid requests are rejected before entering the queue.
-
----
-
-## Why Round Robin Was Selected
-
-Round Robin provides a balance between:
-
-| Requirement           | Support  |
-|-----------------------|----------|
-| Fairness              | High     |
-| Responsiveness        | High     |
-| Starvation Prevention | High     |
-| Simplicity            | High     |
-
-For a high-demand enrolment platform, Round Robin provides predictable and equitable CPU access.
+Only valid requests enter the system.
 
 ---
 
 # 7. Section C – Round Robin Simulation
 
-## Simulation Configuration
+## Simulation Settings
 
-
-Scheduling Algorithm = Round Robin
-Time Slice = 2 Units
-Total Memory = 180 Units
-
+Scheduling Algorithm: Round Robin
+Time Slice: 2 Units
+Total Memory: 180 Units
 
 ---
 
-## Initial Requests
+## Request Data
 
 | Request             | Arrival | CPU | Memory  |
 |---------------------|---------|-----|---------|
 | REQ_Prog_A          | 0       | 5   | 100     |
 | REQ_Cyb_B           | 0       | 2   | 200     |
-| REQ_NET_C           | 4       | 6   | 150     |
+| REQ_NET_C           | 0       | 6   | 80      |
 | REQ_Prog_A_s8216534 | 4       | 3   | 120     |
 | REQ_NIT_D           | 8       | 6   | 180     |
 
 ---
 
-## Admission Control Results
+## Admission Results
 
-### Accepted
-
+### Accepted Immediately
 
 REQ_Prog_A
-
+REQ_NET_C
 
 ### Waiting
 
-
-REQ_NET_C
 REQ_Prog_A_s8216534
 REQ_NIT_D
 
-
 ### Rejected
 
-
 REQ_Cyb_B
+Reason: Memory Required = 200 System Memory = 180
 
+---
 
-Reason:
-
-
-Memory Required = 200
-System Memory = 180
-
-## Memory State Changes
+## System State Changes
 
 ### Time 0
 
-
 REQ_Prog_A admitted
 Memory Allocated = 100
-Available Memory = 80
 
+REQ_NET_C admitted
+Memory Allocated = 80
+
+Available Memory = 0
+
+### Time 0
+
+REQ_Cyb_B rejected
+Reason: Memory exceeds system capacity
 
 ### Time 4
 
-
-REQ_NET_C arrives
-Requires 150 Memory
-WAITING
-
-
-
 REQ_Prog_A_s8216534 arrives
-Requires 120 Memory
-WAITING
-
+Status = WAITING
+Reason = No available memory
 
 ### Time 5
-
 
 REQ_Prog_A completes
 Memory Released = 100
-Available Memory = 180
 
-
-### Time 5
-
-
-REQ_Prog_A_s8216534 admitted
-Memory Allocated = 120
-Available Memory = 60
-
+Available Memory = 100
 
 ### Time 8
 
+REQ_NET_C completes
+Memory Released = 80
+
+Available Memory = 180
+
+### Time 8
+
+REQ_Prog_A_s8216534 admitted
+Memory Allocated = 120
+
+Available Memory = 60
+
+### Time 11
 
 REQ_Prog_A_s8216534 completes
 Memory Released = 120
 
+Available Memory = 180
 
-### Time 8
-
-
-REQ_NET_C admitted
-Memory Allocated = 150
-
-
-### Time 14
-
-
-REQ_NET_C completes
-Memory Released = 150
-
-
-### Time 14
-
+### Time 11
 
 REQ_NIT_D admitted
 Memory Allocated = 180
 
+Available Memory = 0
 
-### Time 20
-
+### Time 17
 
 REQ_NIT_D completes
 Memory Released = 180
 
+Available Memory = 180
 
 ---
 
-## Waiting Time and Turnaround Time
+## Waiting Time and Turnaround Analysis
 
-| Request             | Waiting Time                | Turnaround Time      |
-|---------------------|-----------------------------|----------------------|
-| REQ_Prog_A          | 0                           | 5                    |
-| REQ_Cyb_B           | N/A                         | N/A                  |
-| REQ_NET_C           | Depends on admission timing | Completion - Arrival |
-| REQ_Prog_A_s8216534 | Depends on admission timing | Completion - Arrival |
-| REQ_NIT_D           | Depends on admission timing | Completion - Arrival |
+Waiting time is calculated as:
+Waiting Time = Turnaround Time − CPU Time
+
+Turnaround time is calculated as:
+Turnaround Time = Completion Time − Arrival Time
+
+The scheduler automatically calculates these values during execution and displays them in the final execution table.
 
 ---
 
@@ -384,53 +340,46 @@ Memory Released = 180
 
 ## Failed Request
 
-
 REQ_Cyb_B
-
 
 ### Reason For Failure
 
-The request requires:
-
-
+REQ_Cyb_B requires:
 200 Memory Units
 
-
-The system only contains:
-
-
+The system contains:
 180 Memory Units
 
+Because the request exceeds the maximum available memory, the scheduler rejects it during admission control.
 
-Since the request exceeds the total memory available within the system, it fails the admission check and is rejected before scheduling begins.
+The request never enters the Round Robin queue.
 
-### Why This Matters
+### Impact
 
-This demonstrates that:
-
-- CPU availability alone is insufficient.
-- Memory constraints must also be satisfied.
-- The scheduler prevents unsafe execution.
+This demonstrates that available CPU time alone is insufficient. Requests must satisfy all resource constraints before they can execute.
 
 ---
 
 # 9. Individual Contribution
 
-| Task              | Contribution                                |
-|-------------------|---------------------------------------------|
-| System Design     | Created enrolment process model             |
-| Scheduling Logic  | Implemented Round Robin scheduling          |
-| Admission Control | Added memory and seat validation            |
-| Simulation        | Tested process execution and waiting states |
-| Documentation     | Produced system report and reasoning tables |
-| Failure Analysis  | Analysed rejected enrolment request         |
+| Task              | Contribution                           |
+|-------------------|----------------------------------------|
+| System Design     | Designed enrolment process model       |
+| Scheduling Logic  | Implemented Round Robin Scheduler      |
+| Admission Control | Implemented memory and seat validation |
+| Queue Management  | Implemented ready and waiting queues   |
+| Simulation        | Tested process execution and failures  |
+| Reporting         | Prepared technical documentation       |
+
+
+---
 
 # 10. Conclusion
 
-This project successfully demonstrates how a university enrolment system can be modelled using operating system concepts.
+This project successfully demonstrates how a university enrolment platform can be modelled using Operating System concepts.
 
-Enrolment actions were treated as processes competing for CPU time, memory, and class seats. The Round Robin scheduling algorithm was selected because it provides fairness, good responsiveness, and prevents starvation.
+Enrolment requests were treated as processes competing for CPU time, memory, and class seats. Round Robin scheduling provided fair CPU allocation while admission control ensured that only valid requests entered the system.
 
-The simulation demonstrated accepted requests, waiting requests, and rejected requests. The personalised request, REQ_Prog_A_s8216534, satisfied the individualisation requirement while demonstrating how resource constraints affect scheduling decisions.
+The simulation demonstrated accepted, waiting, and rejected requests. The personalised request REQ_Prog_A_s8216534 satisfied the individualisation requirement while showing how resource limitations affect system behaviour.
 
-Overall, the design provides a reliable and realistic representation of how large-scale enrolment systems manage competing requests during high-demand periods.
+Overall, the design provides a realistic representation of how large-scale enrolment systems manage competing requests during peak periods while maintaining responsiveness, fairness, and reliability.
