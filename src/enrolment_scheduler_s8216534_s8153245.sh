@@ -3,8 +3,8 @@
 # ============================================================
 # VU ENROLMENT SYSTEM SCHEDULER
 # ============================================================
-# Student Name: Martin Yii
-# Student ID: s8216534
+# Student Name: Martin Yii George O'Hara
+# Student ID: s8216534 s8153245
 # Scheduling Algorithm: Round Robin
 # Time Slice: 2 units
 # Total Memory: 180 units
@@ -31,9 +31,9 @@ available_memory=$TOTAL_MEMORY
 
 Request=("REQ_Prog_A" "REQ_Cyb_B" "REQ_NET_C" "REQ_Prog_A_s8216534" "REQ_NIT_D")
 
-memory=(100 200 150 120 180)
+memory=(100 200 80 120 180)
 cpu_time=(5 2 6 3 6)
-arrival_time=(0 0 4 4 8)
+arrival_time=(0 0 0 4 8)
 
 # ============================================================
 # CLASS ARRAYS
