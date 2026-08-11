@@ -34,13 +34,16 @@ Checking request: REQ_Cyb_B
   Reason: Memory requirement exceeds total memory.
 
 Checking request: REQ_NET_C
-  Arrival time: 4
+  Arrival time: 0
   CPU time:     6
-  Memory:       150
-  Status: WAITING
-  Reason: Not enough available memory.
-  Required memory: 150
-  Available memory: 80
+  Memory:       80
+  Status: READY
+  Class seat available: YES
+  Memory available: YES
+      Seat allocated for REQ_NET_C
+      Remaining seats: 0
+      Memory allocated: 80
+      Available memory: 0
 
 Checking request: REQ_Prog_A_s8216534
   Arrival time: 4
@@ -56,7 +59,7 @@ Checking request: REQ_NIT_D
   Status: WAITING
   Reason: Not enough available memory.
   Required memory: 180
-  Available memory: 80
+  Available memory: 0
 
 ==========================================================
 ROUND ROBIN EXECUTION
@@ -69,53 +72,46 @@ Executing REQ_Prog_A
   Remaining CPU time: 3
   Status: WAITING - more CPU time required
 
-Executing REQ_Prog_A
-  Time: 2 -> 4
-  Time slice used: 2
-  Remaining CPU time: 1
-  Status: WAITING - more CPU time required
-
-Executing REQ_Prog_A
-  Time: 4 -> 5
-  Time slice used: 1
-  Remaining CPU time: 0
-      Memory released:  100
-      Available memory: 180
-  Status: COMPLETED
-  Completion time: 5
-  Waiting time: 0
-  Turnaround time: 5
-  Class seat remains UNAVAILABLE.
-
-[5] Memory is now available.
-[5] REQ_NET_C can enter the queue.
-      Seat allocated for REQ_NET_C
-      Remaining seats: 0
-      Memory allocated: 150
-      Available memory: 30
-
 Executing REQ_NET_C
-  Time: 5 -> 7
+  Time: 2 -> 4
   Time slice used: 2
   Remaining CPU time: 4
   Status: WAITING - more CPU time required
 
+Executing REQ_Prog_A
+  Time: 4 -> 6
+  Time slice used: 2
+  Remaining CPU time: 1
+  Status: WAITING - more CPU time required
+
 Executing REQ_NET_C
-  Time: 7 -> 9
+  Time: 6 -> 8
   Time slice used: 2
   Remaining CPU time: 2
   Status: WAITING - more CPU time required
+
+Executing REQ_Prog_A
+  Time: 8 -> 9
+  Time slice used: 1
+  Remaining CPU time: 0
+      Memory released:  100
+      Available memory: 100
+  Status: COMPLETED
+  Completion time: 9
+  Waiting time: 4
+  Turnaround time: 9
+  Class seat remains UNAVAILABLE.
 
 Executing REQ_NET_C
   Time: 9 -> 11
   Time slice used: 2
   Remaining CPU time: 0
-      Memory released:  150
+      Memory released:  80
       Available memory: 180
   Status: COMPLETED
   Completion time: 11
-  Waiting time: 1
-  Turnaround time: 7
+  Waiting time: 5
+  Turnaround time: 11
   Class seat remains UNAVAILABLE.
 
 [11] Memory is now available.
@@ -159,34 +155,34 @@ Scheduler stopping.
 ==========================================================
 FINAL EXECUTION TABLE
 ==========================================================
-Request                Arrival    CPU        Start      Completion   Status       Subject
+Request                Arrival    CPU        Start      Completion   Status       Subject           
 ------------------------------------------------------------------------------------------------------
-REQ_Prog_A             0          5          0          5            COMPLETED    class_Prog_A
-REQ_Cyb_B              0          2          -1         -1           REJECTED     NONE
-REQ_NET_C              4          6          5          11           COMPLETED    class_NET_C
-REQ_Prog_A_s8216534    4          3          -1         -1           REJECTED     NONE
-REQ_NIT_D              8          6          11         17           COMPLETED    class_NIT_D
+REQ_Prog_A             0          5          0          9            COMPLETED    class_Prog_A      
+REQ_Cyb_B              0          2          -1         -1           REJECTED     NONE              
+REQ_NET_C              0          6          2          11           COMPLETED    class_NET_C       
+REQ_Prog_A_s8216534    4          3          -1         -1           REJECTED     NONE              
+REQ_NIT_D              8          6          11         17           COMPLETED    class_NIT_D       
 
 ==========================================================
 WAITING TIME AND TURNAROUND TIME
 ==========================================================
-Request                Waiting Time    Turnaround Time
+Request                Waiting Time    Turnaround Time     
 ----------------------------------------------------------
-REQ_Prog_A             0               5
-REQ_Cyb_B              N/A             N/A
-REQ_NET_C              1               7
-REQ_Prog_A_s8216534    N/A             N/A
-REQ_NIT_D              3               9
+REQ_Prog_A             4               9                   
+REQ_Cyb_B              N/A             N/A                 
+REQ_NET_C              5               11                  
+REQ_Prog_A_s8216534    N/A             N/A                 
+REQ_NIT_D              3               9                   
 
 ==========================================================
 PERFORMANCE SUMMARY
 ==========================================================
 Completed processes:       3
 Rejected requests:         2
-Total waiting time:        4
-Total turnaround time:     21
-Average waiting time:      1.33
-Average turnaround time:   7.00
+Total waiting time:        12
+Total turnaround time:     29
+Average waiting time:      4.00
+Average turnaround time:   9.67
 
 ==========================================================
 FINAL CLASS SEAT STATUS
