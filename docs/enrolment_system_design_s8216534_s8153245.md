@@ -9,13 +9,13 @@
 # Table of Contents
 
 1. Project Summary
-2. Introduction
-3. Enrolment Requests as Operating System Processes
-4. System Constraints
-5. Section A – Multi-Constraint Reasoning
-6. Section B – Strategy Selection Under Conflict
-7. Section C – Round Robin Simulation
-8. Failure Analysis
+2. Enrolment Requests as Operating System Processes
+3. System Constraints
+4. Section A – Multi-Constraint Reasoning
+5. Section B – Strategy Selection Under Conflict
+6. Section C – Round Robin Simulation
+7. Failure Analysis
+8. Trade Offs
 9. Individual Contribution
 10. Conclusion
 
@@ -27,34 +27,31 @@ This project models the Victoria University enrolment platform using Operating S
 
 The system uses a Round Robin scheduling algorithm with a time slice of 2 CPU units. Requests are admitted only when sufficient memory and class seats are available. Requests may be accepted, delayed in a waiting state, or rejected if system constraints cannot be satisfied.
 
-This simulation demonstrates fairness, responsiveness, and correctness while operating under resource limitations.
+This project will focus on 3 major constraints. (1) CPU capacity. Each enrolment request requires a certain amount of processing time.  In this assignment, the given time slice is 2-unit time slice. The enrolment system will demonstrate how it can employ a fair scheduling policy while ensuring correctness and responsiveness. (2) Memory capacity. The main constraint of the system is that there is only 180 units of total memory. Each requests require different amounts of memory, with some requests requiring more memory than the entire system can provide. For example, REQ_Cyb_B requires 200 units and is therefore rejected. (3) Class capacity. The system also has limited class capacity. When a request is admitted, a class seat is allocated and remains unavailable even after the enrolment process finishes. In contrast, memory is released when a process completes and can then be reused.
+
+The simulation demonstrates CPU scheduling, resource allocation, waiting, rejection, completion, waiting time and turnaround time. It also demonstrates operating-system must employ a scheduling policy that balances competing goals such as fairness, responsiveness, resource utilisation and correctness.
 
 ---
 
-# 2. Introduction
-
-At the beginning of each semester, the VU enrolment platform experiences heavy demand as students attempt to:
-
-- Enrol into subjects
-- Change tutorial groups
-- Resolve timetable clashes
-- Finalise study plans
-
-Each enrolment operation requires CPU processing time and memory resources. In addition, enrolment requests depend on class seat availability.
-
-Because system resources are limited, the enrolment platform must decide:
-
-- Which requests execute immediately
-- Which requests wait
-- Which requests must be rejected
-
-This simulation applies Operating System scheduling concepts to manage these competing requests.
-
----
-
-# 3. Enrolment Requests as Operating System Processes
+# 2. Enrolment Requests as Operating System Processes
 
 An enrolment request behaves similarly to a process within an operating system.
+
+Refer to the following comparison:
+Enrolment System	- Operating System Concept
+Enrolment request	- Process
+CPU time required	- CPU burst
+Memory required	- Memory/resource requirement
+Arrival time	- Process arrival time
+Waiting request	- Waiting process
+Ready request	- Ready process
+Round Robin queue	- Ready queue
+Time slice	- CPU time quantum
+Completion	- Process termination
+Waiting time	- Process waiting time
+Turnaround time	- Process turnaround time
+Class seat	- Shared resource
+Available memory	- Available system resource
 
 Each request requires:
 
@@ -74,7 +71,7 @@ Only one enrolment request may execute at a time. All other requests wait in a s
 
 ---
 
-# 4. System Constraints
+# 3. System Constraints
 
 ## CPU Processing Time
 
@@ -88,7 +85,9 @@ Each request requires a different amount of CPU processing.
 | REQ_Prog_A_s8216534 | 3        |
 | REQ_NIT_D           | 6        |
 
-Long-running processes require multiple time slices before completion.
+The given time slice is 2-unit. Therefore, a process requiring six units cannot execute for all six units continuously. 
+It must receive the CPU in multiple turns. 
+Long-running processes require multiple time slices before completion, which increases scheduling overhead and potentially increases turnaround time.
 
 ---
 
@@ -112,6 +111,8 @@ A request may only execute when enough memory is available.
 
 If the request exceeds total memory capacity, it is rejected.
 
+The system uses memory dynamically. When a process is admitted, memory is allocated. When the process completes, the memory is released and becomes available for another process. 
+
 ---
 
 ## Class Capacity
@@ -129,7 +130,7 @@ When a seat is allocated it remains occupied for the remainder of the simulation
 
 ---
 
-# 5. Section A – Multi-Constraint Reasoning
+# 4. Section A – Multi-Constraint Reasoning
 
 ## Request Classification
 
@@ -168,7 +169,7 @@ The request initially enters the WAITING state because memory resources are unav
 
 ---
 
-# 6. Section B – Strategy Selection Under Conflict
+# 5. Section B – Strategy Selection Under Conflict
 
 ## Selected Scheduling Algorithm
 
@@ -216,7 +217,7 @@ Only valid requests enter the system.
 
 ---
 
-# 7. Section C – Round Robin Simulation
+# 6. Section C – Round Robin Simulation
 
 ## Simulation Settings
 
@@ -336,7 +337,7 @@ The scheduler automatically calculates these values during execution and display
 
 ---
 
-# 8. Failure Analysis
+# 7. Failure Analysis
 
 ## Failed Request
 
@@ -360,6 +361,18 @@ This demonstrates that available CPU time alone is insufficient. Requests must s
 
 ---
 
+# 8. Trade-offs
+
+8.1 Fairness vs Correctness
+One of the main trade-offs is between fairness and correctness. Round Robin is designed to provide fairness by giving each ready process a limited amount of CPU time. A long-running process cannot continuously use the CPU while shorter processes wait indefinitely. However, fairness alone does not guarantee that an enrolment is correct.
+For example, suppose two students request the last available seat in the same class. Giving both requests equal opportunities to execute would appear fair from a scheduling perspective. However, allowing both enrolments to complete would be incorrect because only one seat exists.
+Therefore, fair scheduling must operate together with resource validation. The scheduler should be fair when deciding which valid process gets CPU time, but correctness must take priority when deciding whether the process is actually allowed to enrol. The assignment demonstrates this trade-off because CPU scheduling is handled using Round Robin, while class-seat allocation is handled separately.
+8.2 Responsiveness vs Validation Accuracy
+Another trade-off is between responsiveness and validation accuracy. A system that performs many checks before allowing a request to execute may be more accurate, but those checks can delay the response.
+For example, the simulation performs several admissions checks before a request becomes ready. This improves reliability because invalid requests can be rejected instead of being processed incorrectly. However, if the system performed extremely detailed validation repeatedly, it could increase processing time and reduce responsiveness.
+
+
+---
 # 9. Individual Contribution
 
 | Task              | Contribution                           |
@@ -381,5 +394,7 @@ This project successfully demonstrates how a university enrolment platform can b
 Enrolment requests were treated as processes competing for CPU time, memory, and class seats. Round Robin scheduling provided fair CPU allocation while admission control ensured that only valid requests entered the system.
 
 The simulation demonstrated accepted, waiting, and rejected requests. The personalised request REQ_Prog_A_s8216534 satisfied the individualisation requirement while showing how resource limitations affect system behaviour.
+
+This assignment demonstrates several important trade-offs. Fairness is important because processes should receive reasonable opportunities to execute, but fairness cannot override correctness. Similarly, a system needs to be responsive, it must perform enough validation to prevent invalid enrolments.
 
 Overall, the design provides a realistic representation of how large-scale enrolment systems manage competing requests during peak periods while maintaining responsiveness, fairness, and reliability.
