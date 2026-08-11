@@ -1,7 +1,7 @@
 ==========================================================
              VU Enrolment System Scheduler
-             Student Name: Martin Yii
-             Student ID: s8216534
+             Student Name: Martin Yii George OHara
+             Student ID: s8216534 s8153245
 ==========================================================
 
 CHECKPOINT 1 - First Request
