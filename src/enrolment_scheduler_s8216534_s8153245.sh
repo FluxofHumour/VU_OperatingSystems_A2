@@ -12,8 +12,8 @@
 
 echo "=========================================================="
 echo "             VU Enrolment System Scheduler"
-echo "             Student Name: Martin Yii"
-echo "             Student ID: s8216534"
+echo "             Student Name: Martin Yii George O'Hara"
+echo "             Student ID: s8216534 s8153245"
 echo "=========================================================="
 echo
 
