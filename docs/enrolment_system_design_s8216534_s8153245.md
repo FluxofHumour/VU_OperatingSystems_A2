@@ -262,63 +262,55 @@ Reason: Memory Required = 200 System Memory = 180
 
 ### Time 0
 
-REQ_Prog_A admitted
+REQ_Prog_A admitted 
 Memory Allocated = 100
 
-REQ_NET_C admitted
+REQ_NET_C admitted 
 Memory Allocated = 80
 
 Available Memory = 0
 
 ### Time 0
 
-REQ_Cyb_B rejected
-Reason: Memory exceeds system capacity
+REQ_Cyb_B rejected 
+Reason = Memory exceeds system capacity
 
 ### Time 4
 
 REQ_Prog_A_s8216534 arrives
+
+REQ_Prog_A_s8216534 rejected 
+Reason = No class seat available / request not admitted
+
+### Time 8
+
+REQ_NIT_D arrives 
 Status = WAITING
+
 Reason = No available memory
 
-### Time 5
+### Time 9
 
-REQ_Prog_A completes
+REQ_Prog_A completes 
 Memory Released = 100
 
 Available Memory = 100
 
-### Time 8
+### Time 11
 
-REQ_NET_C completes
+REQ_NET_C completes 
 Memory Released = 80
 
 Available Memory = 180
 
-### Time 8
-
-REQ_Prog_A_s8216534 admitted
-Memory Allocated = 120
-
-Available Memory = 60
-
-### Time 11
-
-REQ_Prog_A_s8216534 completes
-Memory Released = 120
-
-Available Memory = 180
-
-### Time 11
-
-REQ_NIT_D admitted
+REQ_NIT_D admitted 
 Memory Allocated = 180
 
 Available Memory = 0
 
 ### Time 17
 
-REQ_NIT_D completes
+REQ_NIT_D completes 
 Memory Released = 180
 
 Available Memory = 180
