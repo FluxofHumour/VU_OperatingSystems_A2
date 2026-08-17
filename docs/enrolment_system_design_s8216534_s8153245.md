@@ -366,6 +366,7 @@ For example, the simulation performs several admissions checks before a request 
 
 ---
 # 9. Individual Contribution
+Both of us contributed in equal amounts on each aspect of the project. We ran through a number of itirations of AI generated bash code and then tweaked the setting in the code such as memory usage, seat availability and arrival time to show how the round robin scheduling worked.
 
 | Task              | Contribution                           |
 |-------------------|----------------------------------------|
